@@ -34,5 +34,23 @@ RSpec.describe 'Landing Page' do
       expect(page).to have_content(@user1.email)
       expect(page).to have_content(@user2.email)
     end     
-  end 
+  end
+
+  describe "successfull login attempt" do 
+    it 'has a Log In link for registered users to sign in to their account after providing the proper credentials' do
+      visit '/'
+  
+      click_link 'Sign In'
+  
+      expect(current_path).to eq(login_path)
+  
+      fill_in :email, with: @user1.email
+      fill_in :password, with: @user1.password
+  
+      click_button 'Log In'
+  
+      expect(current_path).to eq(user_path(@user1.id))
+      expect(page).to have_content("Welcome back, #{@user1.name}!")
+    end
+  end
 end
