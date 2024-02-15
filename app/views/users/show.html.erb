@@ -1,5 +1,6 @@
 <h2><%= @user.name %>'s Dashboard</h2>
-
+<p style="margin-bottom:-10px">currently in:</p>
+<h3><%= @cookies[:location] if @cookies %></h3>
 <%= button_to "Find Top Rated Movies", movies_path(@user), method: :get %><br>
 
 <h3>Viewing Parties:</h3>
