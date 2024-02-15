@@ -13,4 +13,8 @@ class User < ApplicationRecord
     return true if self.authenticate(params[:password])
     false
   end
+
+  def encode(text)
+    text.gsub(/@/,'%40')
+  end
 end
