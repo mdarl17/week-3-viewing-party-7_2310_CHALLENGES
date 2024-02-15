@@ -1,4 +1,4 @@
-class User < ApplicationRecord 
+class User < ApplicationRecord
   validates_presence_of :name, allow_nil: false
   validates_presence_of :email, allow_nil: false, case_sensitive: false
   validates_uniqueness_of :email
@@ -8,4 +8,9 @@ class User < ApplicationRecord
   has_many :viewing_parties
   
   has_secure_password
+
+  def authorized(params)
+    return true if self.authenticate(params[:password])
+    false
+  end
 end
