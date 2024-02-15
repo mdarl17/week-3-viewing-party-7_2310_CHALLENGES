@@ -36,7 +36,7 @@ RSpec.describe 'Landing Page' do
     end     
   end
 
-  describe 'successful log in' do 
+  describe 'logging in' do 
     it 'will give site access to properly credentialed users' do
       visit '/'
   
@@ -52,14 +52,12 @@ RSpec.describe 'Landing Page' do
       expect(current_path).to eq(user_path(@user1.id))
       expect(page).to have_content("Welcome back, #{@user1.name}!")
     end
-  end
 
-  describe 'unsuccessful log in' do 
     it 'will not let a user log in without a matching email' do
       click_link 'Sign In'
 
       expect(current_path).to eq(login_path)
-  
+
       fill_in :email, with: "notagoodemail@bademail.com"
       fill_in :password, with: @user1.password
       
@@ -73,7 +71,7 @@ RSpec.describe 'Landing Page' do
       click_link 'Sign In'
 
       expect(current_path).to eq(login_path)
-  
+
       fill_in :email, with: @user1.email
       fill_in :password, with: "afdlsahsdldfhsg"
       
@@ -81,6 +79,24 @@ RSpec.describe 'Landing Page' do
       
       expect(current_path).to eq(login_path)
       expect(page).to have_content("Sorry, the password entered does not match the one we have on file. Please try logging in again.")
+    end
+  end
+
+  describe "creating a cookie to track geographic data from user" do 
+    it "users can enter their city and state info in text fields that will be displayed on their show page (landing page)" do
+      click_link 'Sign In'
+
+      expect(current_path).to eq(login_path)
+
+      fill_in :email, with: @user1.email
+      fill_in :password, with: @user1.password
+      fill_in :location, with: "Denver, CO"
+
+      click_button 'Log In'
+
+      expect(current_path).to eq(user_path(@user1.id))
+
+      expect(page).to have_content("Denver, CO")
     end
   end
 end
