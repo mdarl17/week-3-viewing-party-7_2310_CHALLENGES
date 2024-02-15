@@ -1,6 +1,9 @@
-<%= button_to "Create New User", register_path, method: :get %>
-<p>Already have an account?</p>
-<%= link_to "Sign In", login_path %>
+<% if !current_user %>
+  <%= button_to "Create New User", register_path, method: :get %>
+  <p>Already have an account?</p>
+  <%= link_to "Sign In", login_path %>
+<% end %>
+
 <section class='existing-users'>
     <p>Existing Users: </p>
     <% @users.each do |user| %>
