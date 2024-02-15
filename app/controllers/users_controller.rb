@@ -22,7 +22,14 @@ class UsersController <ApplicationController
 
   def login
     user = User.find_by(email: params[:email])
-    if user.authenticate(params[:password])
+
+    if !user
+      flash[:error] = "Sorry, we could't find an account with the email you entered."
+      render :login_form
+    elsif !user.authorized(params)
+      flash[:error] = "Sorry, the password entered does not match the one we have on file. Please try logging in again."
+      render :login_form
+    else
       flash[:message] = "Welcome back, #{user.name}!"
       redirect_to user_path(user.id)
     end
