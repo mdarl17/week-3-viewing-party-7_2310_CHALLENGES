@@ -36,8 +36,8 @@ RSpec.describe 'Landing Page' do
     end     
   end
 
-  describe "successfull login attempt" do 
-    it 'has a Log In link for registered users to sign in to their account after providing the proper credentials' do
+  describe 'successful log in' do 
+    it 'will give site access to properly credentialed users' do
       visit '/'
   
       click_link 'Sign In'
@@ -51,6 +51,36 @@ RSpec.describe 'Landing Page' do
   
       expect(current_path).to eq(user_path(@user1.id))
       expect(page).to have_content("Welcome back, #{@user1.name}!")
+    end
+  end
+
+  describe 'unsuccessful log in' do 
+    it 'will not let a user log in without a matching email' do
+      click_link 'Sign In'
+
+      expect(current_path).to eq(login_path)
+  
+      fill_in :email, with: "notagoodemail@bademail.com"
+      fill_in :password, with: @user1.password
+      
+      click_button 'Log In'
+      
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("Sorry, we could't find an account with the email you entered.")
+    end
+
+    it 'will not let a user log in without an authorized password' do
+      click_link 'Sign In'
+
+      expect(current_path).to eq(login_path)
+  
+      fill_in :email, with: @user1.email
+      fill_in :password, with: "afdlsahsdldfhsg"
+      
+      click_button 'Log In'
+      
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("Sorry, the password entered does not match the one we have on file. Please try logging in again.")
     end
   end
 end
