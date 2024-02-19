@@ -70,3 +70,5 @@ group :development do
   # gem "spring"
 end
 
+
+gem "selenium-webdriver", "~> 4.18"
