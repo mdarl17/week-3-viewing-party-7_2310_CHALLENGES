@@ -16,9 +16,9 @@
     </nav>
 
     <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, class: name %>
+      <p><%= content_tag :div, msg, class: name %></p>
     <% end %>
-
+    
     <h1>Viewing Party Lite</h1>
 
     <%= yield %>
