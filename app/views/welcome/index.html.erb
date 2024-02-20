@@ -1,12 +1,13 @@
 <% if !current_user %>
+  <%= link_to "Sign In", login_path %>  
   <%= button_to "Create New User", register_path, method: :get %>
-  <p>Already have an account?</p>
-  <%= link_to "Sign In", login_path %>
-<% end %>
-
-<section class='existing-users'>
-    <p>Existing Users: </p>
+  <p style="margin-bottom:5px">Already have an account?</p>
+<% else %>
+  <%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete } %>
+  <section class='existing-users'>
+    <p>Existing Users:</p>
     <% @users.each do |user| %>
-        <li><%= link_to user.email, user_path(user.id) %></li>
+      <li><%= link_to user.email, user_path(user.id) %></li>
     <% end %>
-</section>
+  </section>
+<% end %>
