@@ -9,12 +9,14 @@ class User < ApplicationRecord
   
   has_secure_password
 
+  str = ""
+
   def authorized(params)
     return true if self.authenticate(params[:password])
     false
   end
 
-  def encode(text)
-    text.gsub(/@/,'%40')
+  def persist(data)
+    str = data
   end
 end
