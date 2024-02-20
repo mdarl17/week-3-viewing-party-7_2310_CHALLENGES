@@ -1,10 +1,11 @@
+<%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete } %>
+<%= link_to "Back to Welcome", root_path %>
 <h2><%= @user.name %>'s Dashboard</h2>
 <p style="margin-bottom:-10px">currently in:</p>
-<h3><%= @cookies[:location] if @cookies %></h3>
+<h3><%= @location %></h3>
 <%= button_to "Find Top Rated Movies", movies_path(@user), method: :get %><br>
 
 <h3>Viewing Parties:</h3>
-
 <% @user.viewing_parties.each do |vp| %>
     Title: <%= vp.movie.title %>
     Duration: <%= vp.duration %>
