@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get '/login', to: 'users#login_form'
+  delete '/logout', to: 'users#logout'
   post '/login', to: 'users#login'
 
   get '/register', to: 'users#new'
